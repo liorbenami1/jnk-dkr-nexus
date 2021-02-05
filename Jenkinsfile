@@ -33,16 +33,24 @@ pipeline {
                         sh 'docker ps'
                         sh 'docker run --rm --name my-image my-image:${BUILD_ID}'
                     }
-
-                    echo "uploading to nexus"
-                    //docker push http://cicdvm:8081/repository/nexux-docker-repo/myhello:latest
-
-
                 }
                 failure{
                     echo "====++++ build execution failed ++++===="
                 }
         
+            }
+        }
+        stage("upload to nexus artifactory"){
+            when {
+                beforeInput true
+            }
+            input {
+                message "Upload to Nexus artifactory?"
+            }
+            steps{
+                echo "====++++ uploading to nexus artifactory ++++===="
+
+                sh 'docker push http://cicdvm:8081/my-image:${BUILD_ID}'
             }
         }
     }
