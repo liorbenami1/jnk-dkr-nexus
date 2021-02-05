@@ -11,7 +11,7 @@ pipeline {
         stage("Build docker image"){
             input {
                 message "Enter build number"
-                OK "Go"
+                ok "Go"
                 submitter "Itay shechter"
                 parameters {
                     string(name: 'BUILD_ID', defaultValue: 'latest', description: 'Build Number: x.y / string')
