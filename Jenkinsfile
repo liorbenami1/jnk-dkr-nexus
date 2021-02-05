@@ -25,7 +25,7 @@ pipeline {
                 script{
                     def buildTag = "${BUILD_ID}"
                     echo "${buildTag}"
-                    sh 'docker build -t my-image:${buildTag} .'
+                    sh "docker build -t my-image:$buildTag ."
                 }
                 
             }
@@ -37,7 +37,7 @@ pipeline {
                     script{
                         sh 'docker images'
                         sh 'docker ps'
-                        sh 'docker run --rm --name my-image my-image:${BUILD_ID}'
+                        sh "docker run --rm --name my-image my-image:$buildTag"
                     }
                 }
                 failure{
@@ -57,7 +57,7 @@ pipeline {
                 echo "====++++ uploading to nexus artifactory ++++===="
                 
                 script{
-                    sh 'docker push http://cicdvm:8081/my-image:${buildTag}'
+                    sh "docker push http://cicdvm:8081/my-image:$buildTag"
                 }
 
             }
