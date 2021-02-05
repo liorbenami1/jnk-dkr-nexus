@@ -8,7 +8,9 @@ pipeline {
                 git "https://github.com/itay47/jnk-dkr-nexus.git"
             }
         }
+        
         stage("Build docker image"){
+            
             input {
                 message "Enter build number"
                 ok "Go!"
@@ -17,6 +19,7 @@ pipeline {
                     string(name: 'BUILD_ID', defaultValue: 'latest', description: 'Build Number: x.y / string')
                 }
             }
+            
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
@@ -24,6 +27,7 @@ pipeline {
                 }
                 
             }
+            
             post{
                 success{
                     echo "====++++ build success ++++===="
@@ -40,14 +44,20 @@ pipeline {
         
             }
         }
+        
         stage("upload to nexus artifactory"){
+            
             input {
                 message "Upload to Nexus artifactory?"
             }
+            
             steps{
                 echo "====++++ uploading to nexus artifactory ++++===="
+                
+                script{
+                    sh 'docker push http://cicdvm:8081/my-image:${BUILD_ID}'
+                }
 
-                sh 'docker push http://cicdvm:8081/my-image:${BUILD_ID}'
             }
         }
     }
