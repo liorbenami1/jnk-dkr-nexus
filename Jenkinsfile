@@ -23,7 +23,8 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    sh 'docker build -t my-image:${BUILD_ID} .'
+                    buildTag = "${BUILD_ID}"
+                    sh 'docker build -t my-image:${buildTag} .'
                 }
                 
             }
@@ -55,7 +56,7 @@ pipeline {
                 echo "====++++ uploading to nexus artifactory ++++===="
                 
                 script{
-                    sh 'docker push http://cicdvm:8081/my-image:${BUILD_ID}'
+                    sh 'docker push http://cicdvm:8081/my-image:${buildTag}'
                 }
 
             }
