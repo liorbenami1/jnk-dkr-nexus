@@ -23,7 +23,8 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    buildTag = "${BUILD_ID}"
+                    def buildTag = "${BUILD_ID}"
+                    echo "${buildTag}"
                     sh 'docker build -t my-image:${buildTag} .'
                 }
                 
