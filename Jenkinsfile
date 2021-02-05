@@ -5,10 +5,7 @@ pipeline {
     stages {
         stage ('Git Checkout') {
             steps {
-                checkout(
-                branch: "master",
-                url: "https://github.com/itay47/jnk-dkr-nexus.git"
-                )
+                git "https://github.com/itay47/jnk-dkr-nexus.git"
             }
         }
         stage("Build docker image"){
@@ -16,10 +13,11 @@ pipeline {
                 parameters {
                     string(name: 'BUILD_ID', defaultValue: 'latest', description: 'Build Number: x.y / string')
                 }
+            }
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    def dockerImage = docker.build ("my-image:${BUILD_ID}")
+                    sh 'docker build tag "my-image:${BUILD_ID}"'
                 }
                 
             }
