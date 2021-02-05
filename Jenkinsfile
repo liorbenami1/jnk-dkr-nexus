@@ -12,10 +12,14 @@ pipeline {
             }
         }
         stage("Build docker image"){
+            input {
+                parameters {
+                    string(name: 'BUILD_ID', defaultValue: 'latest', description: 'Build Number: x.y / string')
+                }
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    def dockerImage = docker.build ("my-image:latest")
+                    def dockerImage = docker.build ("my-image:${BUILD_ID}")
                 }
                 
             }
