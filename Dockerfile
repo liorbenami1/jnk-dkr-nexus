@@ -1,4 +1,4 @@
 FROM alpine:latest
 RUN apk update && apk upgrade
 
-CMD [ "sh", 'echo Hello there!' ] 
+CMD [ "/bin/bash", 'echo Hello there!' ] 
