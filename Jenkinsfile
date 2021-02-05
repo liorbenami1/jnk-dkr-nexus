@@ -41,9 +41,6 @@ pipeline {
             }
         }
         stage("upload to nexus artifactory"){
-            when {
-                beforeInput true
-            }
             input {
                 message "Upload to Nexus artifactory?"
             }
