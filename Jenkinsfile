@@ -29,7 +29,7 @@ pipeline {
                     echo "====++++ build success ++++===="
 
                     script{
-                        sh 'docker run -it -rm --name my-image my-image:${BUILD_ID}'
+                        sh 'docker run -it --rm --name my-image my-image:${BUILD_ID}'
                     }
 
                     echo "uploading to nexus"
