@@ -20,7 +20,7 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    sh 'docker build tag "my-image:${BUILD_ID}"'
+                    sh 'docker build -t "my-image:${BUILD_ID}"'
                 }
                 
             }
@@ -32,7 +32,7 @@ pipeline {
 
                 }
                 failure{
-                    echo "====++++ A execution failed++++===="
+                    echo "====++++ build execution failed ++++===="
                 }
         
             }
