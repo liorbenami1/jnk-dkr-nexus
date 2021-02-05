@@ -4,11 +4,12 @@ pipeline {
     }
     stages {
         stage ('Git Checkout') {
-        steps {
-            gitCheckout(
+            steps {
+                checkout(
                 branch: "master",
                 url: "https://github.com/itay47/jnk-dkr-nexus.git"
-            )}
+                )
+            }
         }
         stage("Build docker image"){
             steps{
