@@ -27,8 +27,14 @@ pipeline {
             post{
                 success{
                     echo "====++++ build success ++++===="
+
+                    script{
+                        sh 'docker run -it -rm --name my-image my-image:${BUILD_ID}'
+                    }
+
                     echo "uploading to nexus"
                     //docker push http://cicdvm:8081/repository/nexux-docker-repo/myhello:latest
+
 
                 }
                 failure{
