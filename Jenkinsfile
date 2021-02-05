@@ -14,13 +14,16 @@ pipeline {
         stage("Build docker image"){
             steps{
                 echo "====++++ building docker image ++++===="
-                docker build -t myhello:latest
+                script{
+                    dockerImage = docker build -t myhello:latest
+                }
+                
             }
             post{
                 success{
                     echo "====++++ build success ++++===="
                     echo "uploading to nexus"
-                    docker push http://cicdvm:8081/repository/nexux-docker-repo/myhello:latest
+                    //docker push http://cicdvm:8081/repository/nexux-docker-repo/myhello:latest
 
                 }
                 failure{
