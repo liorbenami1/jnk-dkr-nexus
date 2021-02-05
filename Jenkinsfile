@@ -20,7 +20,7 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    sh 'docker build -t "my-image:${BUILD_ID}"'
+                    sh 'docker build -t "my-image:${BUILD_ID} ."'
                 }
                 
             }
