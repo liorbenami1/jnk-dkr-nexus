@@ -15,7 +15,7 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    dockerImage = docker build -t myhello:latest
+                    dockerImage = docker.build ("my-image:${env.BUILD_ID}")
                 }
                 
             }
