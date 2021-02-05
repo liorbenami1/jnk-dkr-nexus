@@ -31,7 +31,7 @@ pipeline {
                     script{
                         sh 'docker images'
                         sh 'docker ps'
-                        sh 'docker run -t --name my-image my-image:${BUILD_ID}'
+                        sh 'docker run -it --name my-image my-image:${BUILD_ID}'
                     }
 
                     echo "uploading to nexus"
