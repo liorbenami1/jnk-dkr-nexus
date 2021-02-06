@@ -62,11 +62,12 @@ pipeline {
                 
                 script{
                     echo "login to nexus..."
-                    //next move to jenkins credentials()
-                    sh 'docker login -u admin -p admin1234 http://192.168.1.12:8081/repository/nexux-docker-repo/'
+                    //https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images
+                    NEXUS_CRED = Credentials("cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5")
+                    sh 'docker login -u NEXUS_CRED_USR -p NEXUS_CRED_PSW http:/CICD:8082/repository/nexux-docker-repo/'
                     
                     try {
-                        sh "docker push http://192.168.1.12:8081/repository/nexux-docker-repo/my-image:$BUILD_TAG"
+                        sh "docker push http://CICD:8082/repository/nexux-docker-repo/my-image:$BUILD_TAG"
                     }
                     catch (exception) {
                         echo 'Exception: $exception'
