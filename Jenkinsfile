@@ -2,9 +2,10 @@ pipeline {
     agent {
         label "docker"
     }
+    environment{
+        BUILD_TAG = 'NO-TAG'
+    }
     stages {
-
-        def BUILD_TAG = ''
 
         stage ('Git Checkout') {
             steps {
@@ -27,8 +28,8 @@ pipeline {
                 echo "====++++ building docker image ++++===="
                 script{
                     BUILD_TAG = "${BUILD_ID}"
-                    echo "${buildTag}"
-                    sh "docker build -t my-image:$buildTag ."
+                    echo "${BUILD_TAG}"
+                    sh "docker build -t my-image:$BUILD_TAG ."
                 }
                 
             }
@@ -40,7 +41,7 @@ pipeline {
                     script{
                         sh 'docker images'
                         sh 'docker ps'
-                        sh "docker run --rm --name my-image my-image:$buildTag"
+                        sh "docker run --rm --name my-image my-image:$BUILD_TAG"
                     }
                 }
                 failure{
@@ -60,7 +61,7 @@ pipeline {
                 echo "====++++ uploading to nexus artifactory ++++===="
                 
                 script{
-                    sh "docker push http://cicdvm:8081/my-image:$buildTag"
+                    sh "docker push http://cicdvm:8081/my-image:$BUILD_TAG"
                 }
 
             }
