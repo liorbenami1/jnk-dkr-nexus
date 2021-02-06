@@ -3,6 +3,9 @@ pipeline {
         label "docker"
     }
     stages {
+
+        def BUILD_TAG = ''
+
         stage ('Git Checkout') {
             steps {
                 git "https://github.com/itay47/jnk-dkr-nexus.git"
@@ -23,7 +26,7 @@ pipeline {
             steps{
                 echo "====++++ building docker image ++++===="
                 script{
-                    def buildTag = "${BUILD_ID}"
+                    BUILD_TAG = "${BUILD_ID}"
                     echo "${buildTag}"
                     sh "docker build -t my-image:$buildTag ."
                 }
