@@ -18,7 +18,7 @@ pipeline {
             input {
                 message "Enter build number"
                 ok "Go!"
-                submitter "Itay shechter"
+                submitter "Mr. Miagi"
                 parameters {
                     string(name: 'BUILD_ID', defaultValue: 'latest', description: 'Build Number: x.y / string')
                 }
@@ -61,7 +61,8 @@ pipeline {
                 echo "====++++ uploading to nexus artifactory ++++===="
                 
                 script{
-                    sh "docker push http://cicdvm:8081/my-image:$BUILD_TAG"
+                    //sh "docker push http://cicdvm:8081/my-image:$BUILD_TAG"
+                    sh "docker push http://cicdvm:8081/repository/nexux-docker-repo/my-image:$BUILD_TAG"
                 }
 
             }
