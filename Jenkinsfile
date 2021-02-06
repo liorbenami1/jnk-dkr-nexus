@@ -4,6 +4,7 @@ pipeline {
     }
     environment{
         BUILD_TAG = 'NO-TAG'
+        NEXUS_CRED = credentials("cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5")
     }
     stages {
 
@@ -63,7 +64,7 @@ pipeline {
                 script{
                     echo "login to nexus..."
                     //https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images
-                    NEXUS_CRED = credentials("cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5")
+                    //NEXUS_CRED = credentials("cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5")
                     sh 'docker login -u NEXUS_CRED_USR -p NEXUS_CRED_PSW http:/CICD:8082/repository/nexux-docker-repo/'
                     
                     try {
