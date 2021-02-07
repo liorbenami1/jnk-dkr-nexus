@@ -71,8 +71,8 @@ pipeline {
                     try {
                         sh "docker push http://192.168.1.12:8082/repository/nexux-docker-repo/my-image:$BUILD_TAG"
                     }
-                    catch (exception e) {
-                        echo 'Exception: $e'
+                    catch (exception) {
+                        echo 'Exception: $exception'
                     }
                     
                 }
