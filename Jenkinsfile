@@ -69,7 +69,7 @@ pipeline {
                         echo "$NEXUS_CRED_USR"
                         echo "$NEXUS_CRED_PSW"
 
-                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http:/192.168.1.12:8082/repository/nexux-docker-repo/'
+                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http://192.168.1.12:8082/repository/nexux-docker-repo/'
                     
                         try {
                             sh "docker push http://192.168.1.12:8082/repository/nexux-docker-repo/my-image:$BUILD_TAG"
