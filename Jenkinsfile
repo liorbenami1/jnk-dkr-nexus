@@ -29,7 +29,7 @@ pipeline {
                 script{
                     BUILD_TAG = "${BUILD_ID}"
                     echo "${BUILD_TAG}"
-                    sh "docker build -t my-image:$BUILD_TAG ."
+                    sh "docker build -t my-image:$BUILD_TAG -t cicdvm:8082/my-image:$BUILD_TAG ."
                 }
                 
             }
@@ -69,10 +69,10 @@ pipeline {
                         echo "$NEXUS_CRED_USR"
                         echo "$NEXUS_CRED_PSW"
 
-                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http://cicdvm:8082/repository/nexux-docker-repo/'
+                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http://cicdvm:8082/'
                     
                         try {
-                            sh "docker push http://cicdvm:8082/repository/nexux-docker-repo/my-image:$BUILD_TAG"
+                            sh "docker push http://cicdvm:8082/my-image:$BUILD_TAG"
                         }
                         catch (exception) {
                             echo 'Exception: $exception'
