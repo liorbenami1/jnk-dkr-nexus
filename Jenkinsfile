@@ -66,9 +66,10 @@ pipeline {
                     //NEXUS_CRED = credentials("cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5")
 
                     withCredentials([usernamePassword(credentialsId: 'cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5', passwordVariable: 'NEXUS_CRED_PSW', usernameVariable: 'NEXUS_CRED_USR')]) {
-                        echo NEXUS_CRED
+                        echo "$NEXUS_CRED_USR"
+                        echo "$NEXUS_CRED_PSW"
 
-                        sh 'docker login -u NEXUS_CRED_USR -p NEXUS_CRED_PSW http:/192.168.1.12:8082/repository/nexux-docker-repo/'
+                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http:/192.168.1.12:8082/repository/nexux-docker-repo/'
                     
                         try {
                             sh "docker push http://192.168.1.12:8082/repository/nexux-docker-repo/my-image:$BUILD_TAG"
