@@ -26,3 +26,7 @@
      * At the end will ask to continue with upload to the nexus artifactory.
      
   9. You can browse your nexus to see the blob data and docker image uploaded to the registry.
+
+<img src="./img1.jpg">
+<img src="./img2.jpg">
+<img src="./img3.jpg">
