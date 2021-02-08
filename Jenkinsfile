@@ -77,6 +77,23 @@ pipeline {
                     }
                 }
             }
+
+            post{
+                success{
+                    echo "====++++ Upload to registry success ++++===="
+
+                    script{
+                        //logout the registry
+                        sh "docker logout"
+                        
+                        //remove local images to cleanup storage 
+                        sh "docker rmi my-image:$BUILD_TAG cicdvm:8082/my-image:$BUILD_TAG"
+                    }
+                }
+                failure{
+                    echo "====++++ Upload to registry failed ++++===="
+                }
+            }
         }
     }
 }
