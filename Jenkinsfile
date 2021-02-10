@@ -64,9 +64,9 @@ pipeline {
                     echo "login to nexus..."
                     //https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images
 
-                    //withCredentials([usernamePassword(credentialsId: 'cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5', passwordVariable: 'NEXUS_CRED_PSW', usernameVariable: 'NEXUS_CRED_USR')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dff4171e-b960-4231-8c84-372f19b502bc', passwordVariable: 'NEXUS_CRED_PSW', usernameVariable: 'NEXUS_CRED_USR')]) {
 
-                        sh 'docker login -u admin --password-stdin http://192.168.1.201:8081/'
+                        sh 'docker login -u ${NEXUS_CRED_USR} -p ${NEXUS_CRED_PSW} http://192.168.1.201:8081/'
                     
                         try {
                             sh "docker push 192.168.1.201:8081/my-image:$BUILD_TAG"
@@ -74,7 +74,7 @@ pipeline {
                         catch (exception) {
                             echo 'Exception: $exception'
                         }
-                   // }
+                    }
                 }
             }
 
