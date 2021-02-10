@@ -74,7 +74,7 @@ pipeline {
                         catch (exception) {
                             echo 'Exception: $exception'
                         }
-                    }
+                   // }
                 }
             }
 
