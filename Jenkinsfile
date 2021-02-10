@@ -66,7 +66,7 @@ pipeline {
 
                     //withCredentials([usernamePassword(credentialsId: 'cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5', passwordVariable: 'NEXUS_CRED_PSW', usernameVariable: 'NEXUS_CRED_USR')]) {
 
-                        sh 'docker login -u admin -p admin http://192.168.1.201:8081/'
+                        sh 'docker login -u admin --password-stdin http://192.168.1.201:8081/'
                     
                         try {
                             sh "docker push 192.168.1.201:8081/my-image:$BUILD_TAG"
