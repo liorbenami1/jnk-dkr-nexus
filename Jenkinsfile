@@ -9,7 +9,7 @@ pipeline {
 
         stage ('Git Checkout') {
             steps {
-                git "https://github.com/itay47/jnk-dkr-nexus.git"
+                git "https://github.com/liorbenami1/jnk-dkr-nexus.git"
             }
         }
         
@@ -29,7 +29,7 @@ pipeline {
                 script{
                     BUILD_TAG = "${BUILD_ID}"
                     echo "${BUILD_TAG}"
-                    sh "docker build -t my-image:$BUILD_TAG -t cicdvm:8082/my-image:$BUILD_TAG ."
+                    sh "docker build -t my-image:$BUILD_TAG -t 192.168.1.201:8081/my-image:$BUILD_TAG ."
                 }
                 
             }
@@ -66,10 +66,10 @@ pipeline {
 
                     withCredentials([usernamePassword(credentialsId: 'cacd3c2b-63f8-4fb0-a0df-dc72b45b99c5', passwordVariable: 'NEXUS_CRED_PSW', usernameVariable: 'NEXUS_CRED_USR')]) {
 
-                        sh 'docker login -u $NEXUS_CRED_USR -p $NEXUS_CRED_PSW http://cicdvm:8082/'
+                        sh 'docker login -u admin -p admin http://192.168.1.201:8081/'
                     
                         try {
-                            sh "docker push cicdvm:8082/my-image:$BUILD_TAG"
+                            sh "docker push 192.168.1.201:8081/my-image:$BUILD_TAG"
                         }
                         catch (exception) {
                             echo 'Exception: $exception'
@@ -87,7 +87,7 @@ pipeline {
                         sh "docker logout"
                         
                         //remove local images to cleanup storage 
-                        sh "docker rmi my-image:$BUILD_TAG cicdvm:8082/my-image:$BUILD_TAG"
+                        //sh "docker rmi my-image:$BUILD_TAG cicdvm:8082/my-image:$BUILD_TAG"
                     }
                 }
                 failure{
